@@ -15,19 +15,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        buttonDatePicker.setOnClickListener { view ->
-            dateSelector(view)
+        buttonDatePicker.setOnClickListener {
+            dateSelector()
         }
     }
 
-    private fun dateSelector(view: View) {
+    private fun dateSelector() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val myPickedDate = DatePickerDialog(
             this,
-            DatePickerDialog.OnDateSetListener { view, selectedYear, selectedMonth, selectedDayOfMonth ->
+            { _, selectedYear, selectedMonth, selectedDayOfMonth ->
                 val selectedDate = "$selectedDayOfMonth/${selectedMonth+1}/$selectedYear"
                 textViewDate.text = selectedDate
                 val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
