@@ -1,6 +1,7 @@
 package com.example.agecalculator
 
 import android.app.DatePickerDialog
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         buttonDatePicker.setOnClickListener {
             dateSelector()
         }
@@ -28,13 +29,13 @@ class MainActivity : AppCompatActivity() {
         val myPickedDate = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDayOfMonth ->
-                val selectedDate = "$selectedDayOfMonth/${selectedMonth+1}/$selectedYear"
+                val selectedDate = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
                 textViewDate.text = selectedDate
                 val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
                 val parsedDateOfBirth = sdf.parse(selectedDate)
-                val dateOfBirthInMinutes =  parsedDateOfBirth!!.time/60000
+                val dateOfBirthInMinutes = parsedDateOfBirth!!.time / 60000
                 val dateToday = sdf.parse(sdf.format(System.currentTimeMillis()))
-                val currentDateInMinutes = dateToday!!.time/60000
+                val currentDateInMinutes = dateToday!!.time / 60000
                 val ageInMinutes = currentDateInMinutes - dateOfBirthInMinutes
                 textView5.text = ageInMinutes.toString()
             },
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             month,
             day
         )
-        myPickedDate.datePicker.maxDate= System.currentTimeMillis()
+        myPickedDate.datePicker.maxDate = System.currentTimeMillis()
         myPickedDate.show()
     }
 }
